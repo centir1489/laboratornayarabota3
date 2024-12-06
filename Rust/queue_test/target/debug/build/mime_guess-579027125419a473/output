@@ -1,0 +1,1 @@
+cargo:rustc-env=MIME_TYPES_GENERATED_PATH=/home/lendell/Документы/Университет/2Курс/Семестр3/1. Программирование/repa/laba3/Rust/queue_test/target/debug/build/mime_guess-579027125419a473/out/mime_types_generated.rs
