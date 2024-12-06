@@ -1,0 +1,61 @@
+{
+    "AVL": {
+        "Data": [
+            90,
+            16
+        ],
+        "Size": 2,
+        "Structu": "AVL-Tree"
+    },
+    "DoubleList": {
+        "Capacity": 2,
+        "Data": [
+            "AB320",
+            "ABC322"
+        ],
+        "Size": 2,
+        "Structu": "DoubleLinkedList"
+    },
+    "HT": {
+        "Capacity": 6,
+        "Data": [],
+        "Size": 0,
+        "Structu": "HashTable"
+    },
+    "LinkList": {
+        "Capacity": 0,
+        "Data": [],
+        "Size": 0,
+        "Structu": "LinkedList"
+    },
+    "myQueue": {
+        "Capacity": 0,
+        "Data": [],
+        "Size": 0,
+        "Structu": "Queue"
+    },
+    "mySet": {
+        "Capacity": 16,
+        "Data": [
+            "sdf",
+            "Abc",
+            "abc324"
+        ],
+        "Size": 3,
+        "Structu": "Set"
+    },
+    "myStack": {
+        "Capacity": 1,
+        "Data": [
+            "item"
+        ],
+        "Size": 1,
+        "Structu": "Stack"
+    },
+    "someMassiv": {
+        "Capacity": 1,
+        "Data": [],
+        "Size": 0,
+        "Structu": "Massiv"
+    }
+}
