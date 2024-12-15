@@ -92,6 +92,35 @@ public:
         }
         Size--;
     }
+
+    void binSerialize(const std::string& filename) {
+        std::ofstream ofs(filename, std::ios::binary);
+        if(!ofs){
+            throw std::runtime_error("Не удалось открыть файл");
+        }
+        ofs.write(reinterpret_cast<const char*>(&Size), sizeof(Size));
+        ofs.write(reinterpret_cast<const char*>(&Capacity), sizeof(Capacity));
+
+        ofs.write(reinterpret_cast<const char*>(Data), Size * sizeof(gen_t));
+
+        ofs.close();
+    }
+
+    
+    void binDeserialize(const std::string& filename) {
+        std::ifstream ifs(filename, std::ios::binary);
+        if(!ifs){
+            throw std::runtime_error("Не удалось открыть файл");
+        }
+        ifs.read(reinterpret_cast<char*>(&Size), sizeof(Size));
+        ifs.read(reinterpret_cast<char*>(&Capacity), sizeof(Capacity));
+
+        delete[] Data;
+        Data = new gen_t[Capacity];
+
+        ifs.read(reinterpret_cast<char*>(Data), Size * sizeof(gen_t));
+        ifs.close();
+    }
 };
 
 #endif

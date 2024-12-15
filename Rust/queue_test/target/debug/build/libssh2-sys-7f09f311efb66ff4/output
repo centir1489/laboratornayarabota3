@@ -1,6 +1,6 @@
 cargo:rerun-if-env-changed=LIBSSH2_SYS_USE_PKG_CONFIG
-cargo:include=/home/lendell/Документы/Университет/2Курс/Семестр3/1. Программирование/repa/laba3/Rust/queue_test/target/debug/build/libssh2-sys-7f09f311efb66ff4/out/include
-cargo:root=/home/lendell/Документы/Университет/2Курс/Семестр3/1. Программирование/repa/laba3/Rust/queue_test/target/debug/build/libssh2-sys-7f09f311efb66ff4/out
+cargo:include=/home/lendell/Документы/Университет/2Курс/Семестр3/1. Программирование/repa/l3/Rust/queue_test/target/debug/build/libssh2-sys-7f09f311efb66ff4/out/include
+cargo:root=/home/lendell/Документы/Университет/2Курс/Семестр3/1. Программирование/repa/l3/Rust/queue_test/target/debug/build/libssh2-sys-7f09f311efb66ff4/out
 cargo:rerun-if-env-changed=DEP_Z_INCLUDE
 cargo:rerun-if-env-changed=DEP_OPENSSL_INCLUDE
 OPT_LEVEL = Some(0)
@@ -28,7 +28,7 @@ cargo:rerun-if-env-changed=HOST_CFLAGS
 HOST_CFLAGS = None
 cargo:rerun-if-env-changed=CFLAGS
 CFLAGS = None
-CARGO_ENCODED_RUSTFLAGS = Some(-Cdebuginfo=2-Cstrip=none--cfg=tarpaulin-Clink-dead-code)
+CARGO_ENCODED_RUSTFLAGS = Some()
 cargo:warning=libssh2/src/hostkey.c: In function 'hostkey_method_ssh_rsa_dtor':
 cargo:warning=libssh2/src/hostkey.c:403:5: warning: 'RSA_free' is deprecated: Since OpenSSL 3.0 [-Wdeprecated-declarations]
 cargo:warning=  403 |     _libssh2_rsa_free(rsactx);
@@ -774,4 +774,4 @@ HOST_ARFLAGS = None
 cargo:rerun-if-env-changed=ARFLAGS
 ARFLAGS = None
 cargo:rustc-link-lib=static=ssh2
-cargo:rustc-link-search=native=/home/lendell/Документы/Университет/2Курс/Семестр3/1. Программирование/repa/laba3/Rust/queue_test/target/debug/build/libssh2-sys-7f09f311efb66ff4/out/build
+cargo:rustc-link-search=native=/home/lendell/Документы/Университет/2Курс/Семестр3/1. Программирование/repa/l3/Rust/queue_test/target/debug/build/libssh2-sys-7f09f311efb66ff4/out/build

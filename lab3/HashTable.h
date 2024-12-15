@@ -163,6 +163,63 @@ public:
         }
         return bfmass;
     }
+
+    void binSerialize(const std::string& filename) {
+        std::ofstream ofs(filename, std::ios::binary);
+        if(!ofs){
+            throw std::runtime_error("Не удалось открыть файл");
+        }
+
+        //капасити и сайз
+        ofs.write(reinterpret_cast<const char*>(&Capacity), sizeof(Capacity));
+        ofs.write(reinterpret_cast<const char*>(&Size), sizeof(Size));
+
+        // Запись узлов
+        for(size_t q = 0; q < Capacity; ++q){
+            size_t keyLen = Table[q].Key.size();
+            size_t dataLen = Table[q].Data.size();
+
+            // длина + значени ключа
+            ofs.write(reinterpret_cast<const char*>(&keyLen), sizeof(keyLen));
+            ofs.write(Table[q].Key.c_str(), keyLen);
+
+            // длина + значение датыыы
+            ofs.write(reinterpret_cast<const char*>(&dataLen), sizeof(dataLen));
+            ofs.write(Table[q].Data.c_str(), dataLen);
+        }
+
+        ofs.close();
+    }
+
+
+    void binDeserialize(const std::string& filename) {
+        std::ifstream ifs(filename, std::ios::binary);
+        if (!ifs) {
+            throw std::runtime_error("Не удалось открыть файл");
+        }
+        //капасити и сайз
+        ifs.read(reinterpret_cast<char*>(&Capacity), sizeof(Capacity));
+        ifs.read(reinterpret_cast<char*>(&Size), sizeof(Size));
+
+        
+        delete[] Table;
+        Table = new HNode[Capacity];
+
+        for(size_t q = 0; q < Capacity; ++q){
+            size_t keyLen;
+            size_t dataLen;
+            
+            ifs.read(reinterpret_cast<char*>(&keyLen), sizeof(keyLen));
+            Table[q].Key.resize(keyLen);
+            ifs.read(&Table[q].Key[0], keyLen);
+
+            ifs.read(reinterpret_cast<char*>(&dataLen), sizeof(dataLen));
+            Table[q].Data.resize(dataLen);
+            ifs.read(&Table[q].Data[0], dataLen);
+        }
+
+        ifs.close();
+    }
 };
 
 #endif

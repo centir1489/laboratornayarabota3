@@ -89,12 +89,11 @@ impl<T: std::fmt::Display + Serialize + for<'de> Deserialize<'de>> Queue<T> {
         None
     }
 
-    // Метод для сериализации в JSON
+    // в json
     pub fn to_json(&self) -> Result<String, serde_json::Error> {
         serde_json::to_string(self)
     }
 
-    // Метод для десериализации из JSON
     pub fn from_json(json: &str) -> Result<Self, serde_json::Error> {
         serde_json::from_str(json)
     }
@@ -108,12 +107,41 @@ impl<T: std::fmt::Display + Serialize + for<'de> Deserialize<'de>> Queue<T> {
         Ok(())
     }
 
-    // Функция для загрузки очереди из файла
     pub fn load_from_file(filename: &str) -> io::Result<Self> {
         let mut file = File::open(filename)?;
         let mut contents = String::new();
         file.read_to_string(&mut contents)?;
         let queue = Self::from_json(&contents).map_err(|e| {
+            io::Error::new(io::ErrorKind::Other, e)
+        })?;
+        Ok(queue)
+    }
+
+    // бинарные
+    pub fn to_binary(&self) -> Result<Vec<u8>, bincode::Error>{
+        bincode::serialize(self)
+    }
+
+    pub fn from_binary(bytes: &[u8]) -> Result<Self, bincode::Error>{
+        bincode::deserialize(bytes)
+    }
+
+    pub fn bin_save_to_file(&self, filename: &str) -> io::Result<()> {
+        let serialized = self.to_binary().map_err(|e|{
+            io::Error::new(io::ErrorKind::Other, e)
+        })?;
+        
+        let mut file = File::create(filename)?;
+        file.write_all(&serialized)?;
+        Ok(())
+    }
+
+    pub fn bin_load_from_file(filename: &str) -> io::Result<Self>{
+        let mut file = File::open(filename)?;
+        let mut contents = Vec::new();
+        file.read_to_end(&mut contents)?;
+        
+        let queue = Self::from_binary(&contents).map_err(|e| {
             io::Error::new(io::ErrorKind::Other, e)
         })?;
         Ok(queue)

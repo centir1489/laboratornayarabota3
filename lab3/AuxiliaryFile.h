@@ -106,7 +106,7 @@ DoubleLinkedList<std::string> converDoubletLinkedList(strData entry){
 StackPP<std::string> convertStack(strData entry){
     StackPP<std::string> convStack;
     for(size_t q = 0; q < entry.Size; q++){
-        convStack.SPUSH(entry.Data[q]);
+        convStack.SPUSH(entry.Data[entry.Size - 1 - q]);
     }
     return convStack;
 }
@@ -166,7 +166,7 @@ strData DoubleLinkedListToEntry(DoubleLinkedList<std::string> list){
     size_t pos = 0;
     while(!list.IsEmpty()){
         entry.Data[pos++] = list.front();
-        list.pop_back();
+        list.pop_front();
     }
     return entry;
 }
@@ -235,7 +235,9 @@ IntegData AVLTreeToEntry(AVLTree avl){
     entry.Structu = "AVL-Tree";
     QueuePP<int> avlQueue = avl.AVLTreeToQueue();
     entry.Size = avlQueue.Size();
+    entry.Data = new int[entry.Size];
     size_t pos = 0;
+
     while(!avlQueue.IsEmpty()){
         entry.Data[pos++] = avlQueue.Front();
         avlQueue.Pop();

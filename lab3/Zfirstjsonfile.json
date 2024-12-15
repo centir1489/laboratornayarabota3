@@ -1,10 +1,9 @@
 {
     "AVL": {
         "Data": [
-            90,
-            16
+            
         ],
-        "Size": 2,
+        "Size": 0,
         "Structu": "AVL-Tree"
     },
     "DoubleList": {
@@ -45,11 +44,12 @@
         "Structu": "Set"
     },
     "myStack": {
-        "Capacity": 1,
+        "Capacity": 2,
         "Data": [
+            "item",
             "item"
         ],
-        "Size": 1,
+        "Size": 2,
         "Structu": "Stack"
     },
     "someMassiv": {

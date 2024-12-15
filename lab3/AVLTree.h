@@ -181,7 +181,7 @@ private:
             ANode* NextNode = queue.Front();
             queue.Pop();
 
-            std::cout << NextNode -> data << " ";
+            std::cout << NextNode -> data << ' ';
 
             if(NextNode -> Left != nullptr){
                 queue.Push(NextNode -> Left);
@@ -216,6 +216,33 @@ private:
         return retqueue;
     }
 
+    void serializeNode(std::ofstream& ofs, ANode* node) {
+        if(node){
+            ofs.write(reinterpret_cast<const char*>(&node -> data), sizeof(node -> data));
+            ofs.write(reinterpret_cast<const char*>(&node -> height), sizeof(node -> height));
+            serializeNode(ofs, node -> Left);
+            serializeNode(ofs, node -> Right);
+        } 
+        else{
+            int nullValue = -1; 
+            ofs.write(reinterpret_cast<const char*>(&nullValue), sizeof(nullValue));
+        }
+    }
+
+    ANode* deserializeNode(std::ifstream& ifs) {
+        int val;
+        ifs.read(reinterpret_cast<char*>(&val), sizeof(val));
+        if(ifs.fail() || val == -1){
+            return nullptr;
+        }
+
+        ANode* node = new ANode(val);
+        ifs.read(reinterpret_cast<char*>(&node -> height), sizeof(node -> height));
+        node -> Left = deserializeNode(ifs);
+        node -> Right = deserializeNode(ifs);
+        return node;
+    }
+
 public:
     AVLTree() : root(nullptr){}
 
@@ -243,6 +270,32 @@ public:
         QueuePP<int> retQueue = ToQueue(root);
         return retQueue;
     }
+
+
+    void binSerialize(const std::string& filename) {
+        std::ofstream ofs(filename, std::ios::binary);
+        if(!ofs){
+            throw std::runtime_error("Не удалось открыть файл");
+        }
+        serializeNode(ofs, root);
+        ofs.close();
+    }
+
+    
+
+    void binDeserialize(const std::string& filename) {
+        std::ifstream ifs(filename, std::ios::binary);
+        if(!ifs){
+            throw std::runtime_error("Не удалось открыть файл");
+        }
+        root = deserializeNode(ifs);
+        ifs.close();
+    }
+
+    
+
+
+
 };
 
 

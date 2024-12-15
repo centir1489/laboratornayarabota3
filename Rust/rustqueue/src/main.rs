@@ -1,50 +1,35 @@
-mod QueuePP; // Подключаем модуль queue
+mod QueuePP;
 
 use QueuePP::Queue;
 
-fn main() {
-    // Создаем новую очередь
-    let mut queue: Queue<i32> = Queue::new();
-
-    // Проверяем, что очередь пуста
-    assert!(queue.is_empty());
-    println!("Очередь пуста: {}", queue.is_empty());
-
-    // Добавляем элементы в очередь
+fn main() -> Result<(), Box<dyn std::error::Error>>{
+    let mut queue = Queue::new();
     queue.push(1);
     queue.push(2);
     queue.push(3);
-    println!("Элементы в очереди после добавления: ");
-    queue.get(); // Ожидаем: 1 2 3
-
-    // Проверяем размер очереди
-    println!("Размер очереди: {}", queue.size()); // Ожидаем: 3
-
-    // Проверяем первый и последний элементы
-    if let Some(front) = queue.front() {
-        println!("Первый элемент: {}", front); // Ожидаем: 1
-    }
-    if let Some(back) = queue.back() {
-        println!("Последний элемент: {}", back); // Ожидаем: 3
-    }
-
-    // Удаляем элемент из очереди
-    queue.pop();
-    println!("Элементы в очереди после удаления: ");
+    queue.push(4);
+    
+    println!("До сериализации:");
     queue.get();
 
-    println!("Размер очереди: {}", queue.size());
 
-    // Сериализация в JSON
-    match queue.to_json() {
-        Ok(json) => println!("Сериализованный JSON: {}", json),
-        Err(e) => println!("Ошибка сериализации: {}", e),
-    }
-    let seri = queue.to_json().unwrap();
-    println!("После сериализации: {}", seri);
-    let _queue1 : Queue<i32> = Queue::from_json(&seri).unwrap();
-    println!("После десериализации: ");
-    _queue1.get();
+    let filename = "queue.json";
+    queue.save_to_file(filename)?;
+
+    let loaded_queue : Queue<i32>= Queue::load_from_file(filename)?;
+    println!("После в json десериализации:");
+    loaded_queue.get();
+
+    let filename = "queue.bin";
+    queue.save_to_file(filename)?;
+
+    let loaded_queue: Queue<i32> = Queue::load_from_file(filename)?;
+
+    println!("После бинарной десериализации::");
+    loaded_queue.get();
+
+
+    Ok(())
     
 
 }

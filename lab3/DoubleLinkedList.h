@@ -141,5 +141,43 @@ public:
         }
         std::cout << '\n';
     }
+
+
+    void binSerialize(const std::string& filename){
+        std::ofstream ofs(filename, std::ios::binary);
+        if(!ofs){
+            throw std::runtime_error("Не удалось открыть файл");
+        }
+
+        size_t size = this -> size();
+        ofs.write(reinterpret_cast<const char*>(&size), sizeof(size));
+
+        for(DNode* bfNode = Head; bfNode != nullptr; bfNode = bfNode -> next){
+            ofs.write(reinterpret_cast<const char*>(&bfNode -> data), sizeof(gen_t));
+        }
+        ofs.close();
+    }
+
+    
+    void binDeserialize(const std::string& filename){
+        std::ifstream ifs(filename, std::ios::binary);
+        if(!ifs){
+            throw std::runtime_error("Не удалось открыть файл");
+        }
+
+        while(!IsEmpty()){
+            pop_front();
+        }
+        
+        size_t size;
+        ifs.read(reinterpret_cast<char*>(&size), sizeof(size));
+
+        for(size_t q = 0; q < size; ++q){
+            gen_t value;
+            ifs.read(reinterpret_cast<char*>(&value), sizeof(gen_t));
+            push_back(value);
+        }
+        ifs.close();
+    }
 };
 #endif

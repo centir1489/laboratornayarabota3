@@ -52,7 +52,7 @@ cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
 cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
 cargo:include=/usr/include
 OPT_LEVEL = Some(0)
-OUT_DIR = Some(/home/lendell/Документы/Университет/2Курс/Семестр3/1. Программирование/repa/laba3/Rust/queue_test/target/debug/build/libz-sys-550bfdef3e7271b8/out)
+OUT_DIR = Some(/home/lendell/Документы/Университет/2Курс/Семестр3/1. Программирование/repa/l3/Rust/queue_test/target/debug/build/libz-sys-550bfdef3e7271b8/out)
 TARGET = Some(x86_64-unknown-linux-gnu)
 HOST = Some(x86_64-unknown-linux-gnu)
 cargo:rerun-if-env-changed=CC_x86_64-unknown-linux-gnu
@@ -77,6 +77,6 @@ cargo:rerun-if-env-changed=HOST_CFLAGS
 HOST_CFLAGS = None
 cargo:rerun-if-env-changed=CFLAGS
 CFLAGS = None
-CARGO_ENCODED_RUSTFLAGS = Some(-Cdebuginfo=2-Cstrip=none--cfg=tarpaulin-Clink-dead-code)
+CARGO_ENCODED_RUSTFLAGS = Some()
 running LC_ALL="C" "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-4" "-fno-omit-frame-pointer" "-m64" "-Wall" "-Wextra" "src/smoke.c" "-g0" "-o" "/dev/null" "-lz"
 cargo:rustc-link-lib=z
